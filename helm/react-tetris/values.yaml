@@ -1,0 +1,10 @@
+replicaCount: 5
+
+image:
+  repository: ahammed46/react-tetris-devops
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
