@@ -1,8 +1,8 @@
 # React Tetris DevOps Platform
 
-A containerized React Tetris application extended into a complete DevOps and cloud-native deployment project.
+A cloud-native DevOps project built around the open-source React Tetris application.
 
-This project started from the original open-source React Tetris application and is being transformed into a production-style infrastructure platform using Docker, Kubernetes, GitOps, CI/CD, monitoring, and security tooling.
+This project demonstrates a complete DevOps workflow including containerization, CI/CD automation, Kubernetes orchestration, GitOps deployment, security scanning, and monitoring.
 
 ---
 
@@ -10,102 +10,138 @@ This project started from the original open-source React Tetris application and 
 
 Frontend game originally created by Marcelo Carvalho.
 
-Original repository:
+Original Repository:
+
 https://github.com/mpirescarvalho/react-tetris
 
-This project extends the original application with DevOps architecture and deployment tooling.
+This repository extends the original application by implementing production-grade DevOps practices and cloud-native tooling.
 
 ---
 
-# Project Goals
+# Project Overview
 
-- Containerize a React application using Docker
-- Serve production build using NGINX
-- Push Docker images to Docker Hub
-- Implement CI/CD pipelines using GitHub Actions
-- Add security scanning using Trivy and SonarQube
-- Deploy application to Kubernetes
-- Implement GitOps using ArgoCD
-- Add monitoring using Prometheus and Grafana
+The goal of this project is to simulate a real-world DevOps workflow used in modern software engineering teams.
+
+The application is:
+
+- Containerized using Docker
+- Served using NGINX
+- Published to Docker Hub
+- Built automatically using GitHub Actions
+- Security scanned using Trivy
+- Deployed to Kubernetes
+- Managed with Helm
+- Continuously synchronized using ArgoCD
+- Monitored using Prometheus
+- Visualized using Grafana
 
 ---
 
 # Tech Stack
 
 ## Frontend
+
 - React
 - Styled Components
 
 ## Containerization
+
 - Docker
 - NGINX
 
 ## CI/CD
+
 - GitHub Actions
 
 ## Security
+
 - Trivy
-- SonarQube
 
 ## Orchestration
+
 - Kubernetes
 
+## Package Management
+
+- Helm
+
 ## GitOps
+
 - ArgoCD
 
 ## Monitoring
+
 - Prometheus
 - Grafana
 
 ---
 
-# Current Architecture
+# DevOps Architecture
 
 ```text
-User
-  ↓
-NGINX Container
-  ↓
-React Tetris Application
-```
-
-Future architecture:
-
-```text
-Developer Push
-      ↓
+Developer
+    │
+    ▼
+GitHub Repository
+    │
+    ▼
 GitHub Actions CI/CD
-      ↓
+    │
+    ▼
+Trivy Security Scan
+    │
+    ▼
 Docker Hub
-      ↓
+    │
+    ▼
+ArgoCD
+    │
+    ▼
 Kubernetes Cluster
-      ↓
-ArgoCD GitOps
-      ↓
-Prometheus + Grafana Monitoring
+    │
+    ▼
+React Tetris Deployment
+    │
+    ▼
+Prometheus
+    │
+    ▼
+Grafana Dashboard
 ```
 
 ---
 
 # Project Structure
 
-```bash
+```text
 react-tetris/
 
+├── .github/
+│   └── workflows/
+│       └── docker-build.yml
+│
+├── helm/
+│   └── react-tetris/
+│       ├── Chart.yaml
+│       ├── values.yaml
+│       └── templates/
+│
+├── k8s/
+│   ├── deployment.yaml
+│   └── service.yaml
+│
 ├── nginx/
 │   └── default.conf
-
+│
 ├── public/
 ├── src/
 ├── assets/
-
+│
 ├── Dockerfile
 ├── .dockerignore
 ├── .gitignore
-
 ├── package.json
 ├── package-lock.json
-
 └── README.md
 ```
 
@@ -125,73 +161,294 @@ docker build -t react-tetris .
 docker run -p 3000:80 react-tetris
 ```
 
-Application will be available at:
+Application:
 
-```bash
+```text
 http://localhost:3000
 ```
 
 ---
 
-# NGINX Configuration
+# Docker Hub
 
-Custom NGINX configuration is added to support React SPA routing.
+Production image is published to Docker Hub.
 
-Location:
+Repository:
+
+```text
+ahammed46/react-tetris-devops
+```
+
+Pull image:
 
 ```bash
-nginx/default.conf
+docker pull ahammed46/react-tetris-devops:v1
 ```
 
 ---
 
-# Current Progress
+# CI/CD Pipeline
 
-- [x] Clone React Tetris application
-- [x] Configure Docker environment
-- [x] Configure WSL2 and Docker Desktop
-- [x] Create multi-stage Docker build
-- [x] Configure NGINX container
-- [x] Optimize Docker image
-- [x] Create custom NGINX routing config
-- [x] Clean project structure
-- [x] Push project to GitHub
+GitHub Actions automates:
+
+- Source code checkout
+- Docker image build
+- Docker Hub authentication
+- Trivy security scanning
+- Docker image push
+
+Workflow location:
+
+```text
+.github/workflows/docker-build.yml
+```
 
 ---
 
-# Upcoming Phases
+# Security Scanning
 
-- [ ] Push Docker image to Docker Hub
-- [ ] Configure GitHub Actions CI/CD pipeline
-- [ ] Add Trivy security scanning
-- [ ] Add SonarQube code analysis
-- [ ] Deploy application to Kubernetes
-- [ ] Configure Kubernetes Services & Deployments
-- [ ] Implement ArgoCD GitOps workflow
-- [ ] Add Prometheus monitoring
-- [ ] Add Grafana dashboards
+Trivy is integrated into the CI/CD pipeline.
+
+The pipeline automatically scans:
+
+- Operating system packages
+- Application dependencies
+- Critical vulnerabilities
+- High-severity vulnerabilities
+
+This helps identify security risks before deployment.
+
+---
+
+# Kubernetes Deployment
+
+The application is deployed to Kubernetes using:
+
+- Deployment
+- Service
+- Replica Sets
+- Pods
+
+Features:
+
+- Replica-based scaling
+- Self-healing pods
+- Declarative infrastructure
+
+Example:
+
+```bash
+kubectl get deployments
+kubectl get pods
+kubectl get services
+```
+
+---
+
+# Helm Deployment
+
+The Kubernetes manifests were converted into a reusable Helm chart.
+
+Benefits:
+
+- Reusable deployments
+- Versioned releases
+- Easier upgrades
+- Environment-specific configurations
+
+Install:
+
+```bash
+helm install react-tetris ./react-tetris
+```
+
+Check release:
+
+```bash
+helm list
+```
+
+---
+
+# GitOps with ArgoCD
+
+ArgoCD continuously monitors the GitHub repository and synchronizes Kubernetes resources automatically.
+
+Features:
+
+- Git as the single source of truth
+- Continuous deployment
+- Deployment history
+- Rollback support
+- Automated synchronization
+
+---
+
+# Monitoring Stack
+
+## Prometheus
+
+Prometheus collects:
+
+- Kubernetes metrics
+- Node metrics
+- Pod metrics
+- Cluster metrics
+
+Example query:
+
+```text
+up
+```
+
+---
+
+## Grafana
+
+Grafana visualizes:
+
+- CPU Usage
+- Memory Usage
+- Network Usage
+- Cluster Health
+
+through customizable dashboards.
+
+---
+
+# Project Progress
+
+## Phase 1 — Docker Containerization
+
+- [x] Multi-stage Docker build
+- [x] NGINX production configuration
+- [x] Docker image optimization
+
+## Phase 2 — Docker Hub
+
+- [x] Publish image to Docker Hub
+
+## Phase 3 — CI/CD
+
+- [x] GitHub Actions pipeline
+- [x] Automated Docker builds
+
+## Phase 4 — Security
+
+- [x] Trivy vulnerability scanning
+
+## Phase 5 — Kubernetes
+
+- [x] Deployment manifest
+- [x] Service manifest
+- [x] Replica management
+- [x] Self-healing validation
+
+## Phase 6 — Helm
+
+- [x] Helm chart creation
+- [x] Helm deployment
+
+## Phase 7 — GitOps
+
+- [x] ArgoCD installation
+- [x] Git synchronization
+- [x] Continuous deployment
+
+## Phase 8 — Monitoring
+
+- [x] Prometheus installation
+- [x] Grafana integration
+- [x] Dashboard creation
+
+---
+
+# Screenshots
+
+## Docker Hub Repository
+
+![Docker Hub](screenshots/dockerhub.png)
+
+---
+
+## ArgoCD GitOps Dashboard
+
+![ArgoCD](screenshots/argocd.png)
+
+---
+
+## Prometheus Metrics
+
+![Prometheus](screenshots/prometheus.png)
+
+---
+
+## Grafana Dashboard
+
+![Grafana](screenshots/grafana.png)
+
+---
+
+# Key DevOps Features
+
+- Docker Containerization
+- Multi-Stage Docker Builds
+- NGINX Reverse Proxy
+- GitHub Actions CI/CD
+- Trivy Security Scanning
+- Kubernetes Deployment
+- Helm Package Management
+- ArgoCD GitOps
+- Prometheus Monitoring
+- Grafana Visualization
 
 ---
 
 # Future Improvements
 
-- Add backend leaderboard API
-- Add PostgreSQL database
-- Add authentication
-- Add Helm charts
-- Add Kubernetes ingress controller
-- Add HTTPS/TLS support
-- Add autoscaling
+- SonarQube Integration
+- Kubernetes Ingress Controller
+- HTTPS/TLS Support
+- Horizontal Pod Autoscaler (HPA)
+- Backend Leaderboard API
+- PostgreSQL Database
+- Authentication System
+- Multi-Environment Deployments
+
+---
+
+# Learning Outcomes
+
+Through this project I gained hands-on experience with:
+
+- Docker Containerization
+- CI/CD Automation
+- Kubernetes Administration
+- Helm Chart Development
+- GitOps Workflows
+- Infrastructure as Code
+- Monitoring and Observability
+- Security Scanning
+- Production Deployment Practices
 
 ---
 
 # Author
 
-Ahammed Sameer
+**Ahammed Sameer**
+
+GitHub:
+
+https://github.com/AhammedSameer46
+
+LinkedIn:
+
+(Add your LinkedIn URL)
 
 ---
 
 # License
 
 This project includes code from the original React Tetris project licensed under the MIT License.
+
 Original copyright belongs to Marcelo Carvalho.
