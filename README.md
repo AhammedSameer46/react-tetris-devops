@@ -443,7 +443,7 @@ https://github.com/AhammedSameer46
 
 LinkedIn:
 
-(Add your LinkedIn URL)
+https://www.linkedin.com/in/ahammed-sameer-28b3a2390/
 
 ---
 
